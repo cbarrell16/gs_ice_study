@@ -1,0 +1,154 @@
+# Greenland Sea Ice Study - Configuration
+# ========================================
+
+# Data source paths (relative to project root)
+paths:
+  era5: "../era5/era5_*_Arctic.nc"
+  osisaf: "../osi-sea_ice_index/"
+  output_base: "./outputs"
+  figures: "./outputs/figures"
+  processed_data: "./outputs/processed_data"
+  logs: "./outputs/logs"
+  methods: "./outputs/methods"
+
+# Region definitions
+regions:
+  greenland_sea:
+    name: "Greenland Sea"
+    coords: [[-22, 71], [-8.5, 71], [12, 79], [-21, 79], [-28, 73], [-22, 71]]
+    vertices:
+      NW: [-21, 79]
+      NE: [12, 79]
+      SE: [-8.5, 71]
+      SW: [-22, 71]
+      W_Mid: [-28, 73]
+  
+  fram_strait:
+    moorings:
+      F17: -8.0
+      F14: -6.5
+      F13b: -5.5
+      F13: -5.0
+      F12: -4.0
+      F11: -3.0
+      F10: -2.0
+    mooring_lat: 79.0
+
+# Spatial extents
+extents:
+  trend_calculation:
+    lon_min: -90
+    lon_max: 90
+    lat_min: 60
+    lat_max: 90
+  
+  map_display:
+    lon_min: -30
+    lon_max: 20
+    lat_min: 65
+    lat_max: 85
+
+# Analysis parameters
+analysis:
+  # Time periods
+  breakpoint_year: 2015
+  periods:
+    period_1: [1979, 2014]
+    period_2: [2015, 2025]
+  
+  # Years for maximum extent
+  max_extent_years:
+    period_1: 1986
+    period_2: 2023
+  
+  # Statistical parameters
+  confidence_level: 0.95
+  n_bootstrap: 10000
+  
+  # Sea ice threshold
+  sic_threshold: 0.15  # 15% concentration
+  
+  # SSA parameters
+  ssa_window_fraction: 0.15
+  
+  # Seasons
+  seasons:
+    winter:
+      name: "March"
+      month: 3
+    summer:
+      name: "September"
+      month: 9
+
+# Plotting parameters
+plotting:
+  # Output format
+  dpi: 600
+  format: "png"
+  
+  # Figure sizes (width, height in inches)
+  figure_sizes:
+    single_panel: [8, 6]
+    two_panel: [12, 6]
+    four_panel: [12, 10]
+    six_panel: [14, 12]
+  
+  # Standard colors (hex codes)
+  colors:
+    # Period colors
+    period1: "#2E86AB"      # GLORYS blue
+    period2: "#A23B72"      # Purple-red
+    
+    # Element colors
+    data: "#808080"         # Gray
+    boundary: "#000000"     # Black
+    mooring: "#800080"      # Purple
+    ice_edge: "#00008B"     # Dark blue
+    breakpoint: "#808080"   # Gray
+    
+    # Analysis colors
+    pwlr_fit: "#E63946"     # Red
+    ssa_trend: "#1D3557"    # Navy
+    peaks: "#A23B72"        # Purple-red
+    troughs: "#2E8B57"      # Sea green
+  
+  # Transparency values
+  alpha:
+    relief: 0.5
+    trend: 0.7
+    ci_band: 0.15
+  
+  # Colormaps
+  colormaps:
+    bathymetry: "cmocean.topo"
+    diverging_trend: 
+      colors: ["#2166ac", "#4393c3", "#92c5de", "#d1e5f0", "white",
+               "#fddbc7", "#f4a582", "#d6604d", "#b2182b"]
+      n_bins: 256
+
+# Units (for consistency across all outputs)
+units:
+  sie: "×10⁶ km²"
+  sie_rate: "×10⁶ km² yr⁻¹"
+  sie_decade: "×10⁶ km² decade⁻¹"
+  sic: "%"
+  sic_rate: "% yr⁻¹"
+  sic_decade: "% decade⁻¹"
+  temperature: "°C"
+  salinity: "psu"
+  depth: "m"
+  velocity: "m s⁻¹"
+
+# Processing options
+processing:
+  # Use cached/processed data when available
+  use_cached_data: false
+  
+  # Parallel processing
+  use_parallel: false  # Set to false for ERA5/GLORYS to avoid memory issues
+  
+  # Logging level (DEBUG, INFO, WARNING, ERROR)
+  log_level: "INFO"
+  
+  # Validation
+  run_validation: true

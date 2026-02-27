@@ -1,0 +1,24 @@
+name: gs_ice_study
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10.12
+  - numpy
+  - pandas
+  - xarray
+  - netcdf4
+  - scipy
+  - matplotlib
+  - cartopy
+  - cmocean
+  - shapely
+  - pyyaml
+  - jupyter
+  - jupyterlab
+  - notebook
+  - pip
+  - pip:
+    - rockhound
+    - pwlf
+    - pyts
