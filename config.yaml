@@ -51,10 +51,10 @@ extents:
 # Analysis parameters
 analysis:
   # Time periods
-  breakpoint_year: 2015
+  breakpoint_year: 2016
   periods:
-    period_1: [1979, 2014]
-    period_2: [2015, 2025]
+    period_1: [1979, 2016]
+    period_2: [2016, 2025]
   
   # Years for maximum extent
   max_extent_years:
