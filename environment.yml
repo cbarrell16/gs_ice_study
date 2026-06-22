@@ -13,12 +13,16 @@ dependencies:
   - cartopy
   - cmocean
   - shapely
+  - regionmask
   - pyyaml
   - jupyter
   - jupyterlab
   - notebook
   - pip
   - pip:
-    - rockhound
-    - pwlf
-    - pyts
+    - gsw           # TEOS-10 thermodynamic calculations
+    - pymannkendall # Mann-Kendall trend tests
+    - pwlf          # Piecewise linear fitting
+    - argopy        # Argo float data access
+    - rockhound     # ETOPO1 bathymetry fetching
+    - pyts          # Time series analysis utilities
