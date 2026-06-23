@@ -158,8 +158,8 @@ units:
 
 # Processing options
 processing:
-  # Use cached/processed data when available
-  use_cached_data: false
+  # Note: reprocessing is controlled by the REPROCESS flag at the top of
+  # each notebook script, not by this config file.
 
   # Parallel processing — must remain false for ERA5/GLORYS12 (memory issues)
   use_parallel: false

@@ -3,7 +3,7 @@ POLAR SURFACE WATER AND ATLANTIC WATER COMPARISON FIGURE
 METHODOLOGY DOCUMENTATION
 ================================================================================
 
-Generated: 2026-06-22 14:42:20
+Generated: 2026-06-23 11:32:03
 Script: figure_04_PSW_and_AW.ipynb
 
 ================================================================================

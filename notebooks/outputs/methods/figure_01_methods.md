@@ -9,7 +9,7 @@ bootstrap confidence intervals (95%, n=1000), and Mann-Kendall significance
 testing are applied to the resulting annual-maximum series.
 
 Split linear trend breakpoints (Pan-Arctic: 2017; Greenland Sea: 2015) are
-physically motivated and confirmed by piecewise linear regression logged
+physically motivated by piecewise linear regression logged
 during script execution.
 
 Spatial panels (c) and (d) use March ERA5 SIC for the ice-edge contour and
@@ -26,7 +26,6 @@ annual maximum for both regions.
   (Hersbach et al., 2020)
 - **Temporal Coverage**: 1979-2025
 - **Spatial Resolution**: 0.25° × 0.25°
-- **Domain**: Arctic region (60°N-90°N, 90°W-90°E)
 
 ### Processing Methods
 SIC data were extracted for March and subset to the Arctic domain. Linear
@@ -44,7 +43,7 @@ were masked where March SIC < 15%.
 ### Data Sources
 - **OSI SAF Sea Ice Index** (daily): Pan-Arctic and Greenland Sea regions
   (OSI SAF, 2017)
-- **Temporal Coverage**: 1979-2025
+- **Temporal Coverage**: 1979-2026
 
 ### Annual Maximum Extraction
 For each calendar year, the daily SIE value and its date were identified

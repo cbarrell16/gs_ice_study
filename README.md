@@ -24,15 +24,12 @@ gs_ice_study/
 │   └── plot_utils.py        # Plotting utilities and styling
 ├── notebooks/               # Analysis notebooks, one per figure
 │   ├── figure_01_SIE_timeseries_and_SIC_spatial_trends.ipynb
-│   ├── figure_02_SIV_decomposition.ipynb
-│   ├── figure_02_spatial_diagnostics.ipynb   # ancillary spatial maps; not a paper figure
 │   └── ...
-├── outputs/                 # All outputs (not in Git except processed_data)
-│   ├── figures/             # Final publication figures (600 DPI PNG)
-│   ├── processed_data/      # Intermediate NetCDF/CSV files for replotting
-│   ├── logs/                # Processing logs (not in Git)
-│   └── methods/             # Auto-generated methodology documentation
-└── data_README.md           # Documentation of external data sources
+└── outputs/                 # All outputs (not in Git except processed_data)
+    ├── figures/             # Final publication figures (600 DPI PNG)
+    ├── processed_data/      # Intermediate NetCDF/CSV files for replotting
+    ├── logs/                # Processing logs (not in Git)
+    └── methods/             # Auto-generated methodology documentation
 ```
 
 ## Setup
@@ -78,6 +75,19 @@ Key parameters:
 - Bootstrap iterations: **1000**
 - Confidence level: **0.95**
 
+## Reprocessing vs. Replotting
+
+Each notebook has a `REPROCESS` flag near the top of the script:
+
+- **`REPROCESS = True`**: loads all raw source data, recomputes all processed
+  outputs (NetCDF/CSV files), and saves them to `outputs/processed_data/figure_XX/`.
+  Requires access to the full external datasets.
+- **`REPROCESS = False`** (default): loads from previously saved processed data
+  only. Suitable for replotting figures without access to raw data.
+
+Run each notebook once with `REPROCESS = True` to generate the processed data
+cache, then subsequent runs with `REPROCESS = False` are fast and self-contained.
+
 ## Outputs
 
 ### Figures
@@ -85,8 +95,7 @@ Publication-quality figures saved to `outputs/figures/` at 600 DPI.
 
 ### Processed Data
 Intermediate NetCDF and CSV files in `outputs/processed_data/figure_XX/`
-allow replotting without reprocessing raw data. Set `use_cached_data: true`
-in `config.yaml` to use cached data.
+allow replotting without reprocessing raw data (see `REPROCESS` flag above).
 
 ### Logs
 Detailed processing logs in `outputs/logs/` (excluded from Git). Each run
@@ -112,7 +121,6 @@ To execute all notebooks in order:
 
 ```bash
 jupyter nbconvert --execute --to notebook --inplace notebooks/figure_01_SIE_timeseries_and_SIC_spatial_trends.ipynb
-jupyter nbconvert --execute --to notebook --inplace notebooks/figure_02_SIV_decomposition.ipynb
 # ... repeat for each figure notebook
 ```
 
