@@ -113,6 +113,7 @@ See `data_README.md` for full documentation of:
 - Fram Strait mooring records (Norwegian Polar Institute)
 - Argo float profiles (Argo GDAC)
 - IGP 2018 field campaign CTD/XCTD profiles
+- ROVER 2025 field campaign CTD profiles
 
 ## Reproducibility
 
