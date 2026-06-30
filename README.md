@@ -6,8 +6,7 @@ by post-2015 Polar Surface Water freshening and regional sea-ice recovery —
 occurring paradoxically during a period of record-low pan-Arctic extents.
 
 This repository contains the analysis code for the manuscript submitted to
-*Nature Climate Change*. Part of the ERC-funded ROVER project (PI: Kjetil Våge,
-University of Bergen).
+*Nature Climate Change*.
 
 ## Project Structure
 
