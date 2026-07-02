@@ -3,7 +3,7 @@
 Analysis of wintertime sea-ice recovery in the Greenland Sea, investigating
 a two-phase regime transition around 2015: pre-2015 Atlantification followed
 by post-2015 Polar Surface Water freshening and regional sea-ice recovery —
-occurring paradoxically during a period of record-low pan-Arctic extents.
+occurring during a period of record-low pan-Arctic extents.
 
 This repository contains the analysis code for the manuscript submitted to
 *Nature Climate Change*.
