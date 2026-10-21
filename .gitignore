@@ -73,3 +73,5 @@ notebooks/outputs/processed_data/
 
 
 notebooks/*/
+.ipynb_checkpoints/
+__pycache__/
