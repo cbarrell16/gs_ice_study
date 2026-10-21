@@ -3,14 +3,14 @@ POLAR SURFACE WATER AND ATLANTIC WATER COMPARISON FIGURE
 METHODOLOGY DOCUMENTATION
 ================================================================================
 
-Generated: 2026-06-23 11:32:03
+Generated: 2026-10-14 15:14:42
 Script: figure_04_PSW_and_AW.ipynb
 
 ================================================================================
 1. DATA SOURCES
 ================================================================================
 
-GLORYS12 Ocean Reanalysis (monthly, 1993-2025)
+GLORYS12 Ocean Reanalysis (monthly, 1993-2026, restricted to end of FMA winter 2026, i.e. through 2026-04-30)
   Variables used:
     - thetao: Potential temperature (°C)
     - so: Salinity (psu)
@@ -94,8 +94,8 @@ GLORYS12 Ocean Reanalysis (monthly, 1993-2025)
 5.1 Linear Trend Analysis
   Method: Piecewise linear regression with fixed breakpoint
   Breakpoint year: 2015 (pre-specified on physical grounds)
-  Period 1: 1993-2015
-  Period 2: 2015-2025
+  Period 1: 1993-2014
+  Period 2: 2015-2026
   Fitting: Ordinary least squares (scipy.stats.linregress)
   Units: Original units per decade (slope × 3652.5)
 

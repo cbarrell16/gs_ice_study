@@ -6,10 +6,12 @@
 
 **GLORYS12V1 Ocean Reanalysis** (Lellouche et al., 2021)
 - **Variables**: Potential temperature (thetao), Practical salinity (so)
-- **Temporal Coverage**: 1993-2025
+- **Temporal Coverage**: 1993-2026 (restricted to end of FMA winter 2026, i.e. through 2026-04-30)
 - **Spatial Resolution**: 1/12° (~8 km)
 - **Vertical Resolution**: 50 depth levels (0-5500m)
-- **Region**: Greenland Sea (bounded by custom polygon)
+- **Region**: Greenland Sea polygon [(-22,71),(-8.5,71),(12,79),(-21,79),(-28,73)] applied as a
+  mask (USE_POLYGON_MASK = True); the input files cover the polygon's bounding box
+  (28°W-12°E, 71-79°N). Spatial means are unweighted means over grid cells.
 
 ### Depth Ranges
 
@@ -32,8 +34,8 @@ Depth averaging performed by selecting depth range and computing mean over depth
 **Breakpoint**: 2015 (pre-specified on physical grounds)
 
 **Periods**:
-- Period 1: 1993-2015 (display label; data mask is year < 2015, i.e. up to Dec 2014)
-- Period 2: 2015-2025
+- Period 1: 1993-2014
+- Period 2: 2015-2026
 
 For each depth layer and period:
 
@@ -60,7 +62,34 @@ where y is the variable value, x is decimal year (year + month/12)
 - 95% confidence intervals from 2.5th and 97.5th percentiles
 - Displayed as shaded regions around trend lines
 
-### Figure 3 Climatology Panels C & D: Surface Layer Seasonal Climatology
+### Figure 3 Panel C: Upper-Ocean Stratification
+
+Panel C shows the layer-mean squared buoyancy frequency between the surface and 250 m,
+
+```
+N²_mean = (1/(H − z0)) ∫ N² dz      (z0 ≈ 0.5 m, H = 250 m), plotted in units of 10⁻⁵ s⁻²
+```
+
+(STRAT_METRIC = 'N2'). With STRAT_METRIC = 'dsigma' it instead shows the equivalent
+surface-to-250 m potential-density difference Δσ0 = (ρ0/g) ∫ N² dz (kg m⁻³). The two differ
+only by the constant factor g/(ρ0 (H − z0)), so trends and significance are identical.
+
+- N² (s⁻²): squared buoyancy frequency from gsw.Nsquared, using Absolute Salinity and
+  Conservative Temperature computed from GLORYS12 practical salinity and potential
+  temperature (TEOS-10), with pressure from depth and latitude.
+- ρ0 = 1027 kg m⁻³ (reference density); g = 9.81 m s⁻² (gravitational acceleration).
+- N² is integrated between GLORYS12 levels from the top level (~0.5 m); the cumulative
+  integral is linearly interpolated to exactly 250 m between the levels either side.
+- Cells with no valid GLORYS12 level below 250 m (seabed shallower than ~250 m, e.g. the
+  inner East Greenland shelf) are excluded.
+- Monthly values are the mean over remaining grid cells of the Greenland Sea domain,
+  regardless of sea-ice cover (unweighted latitude/longitude mean, as for panels a and b,
+  unless STRAT_AREA_WEIGHT = True).
+- Larger Δσ0 means a more stably stratified upper ocean, requiring more buoyancy loss for
+  convection to mix through the layer.
+- Trends, significance testing and confidence intervals as for panels A and B.
+
+### Figure 3 Climatology Panels D & E: Surface Layer Seasonal Climatology
 
 #### Depth Layer
 Analysis restricted to surface layer (0-50 m) to capture seasonal cycle in upper ocean.
@@ -71,11 +100,11 @@ Mean seasonal cycles calculated for four periods:
 - **1990s**: 1993-1999 (partial decade, GLORYS12 starts 1993)
 - **2000s**: 2000-2009
 - **2010s**: 2010-2019
-- **2020s**: 2020-2024
+- **2020s**: 2020-2025
 
-**2025**: Shown separately (incomplete year)
+**2026**: Shown separately (incomplete year, Jan-Apr only)
 
-**Climatological Mean**: Full 1993-2025 average
+**Climatological Mean**: Full 1993-2026 average
 
 #### Calculation Method
 

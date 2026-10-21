@@ -5,7 +5,7 @@
 ### Data Sources
 
 **ERA5 Reanalysis** (Hersbach et al., 2020)
-- **Temporal Coverage**: 1979-2025
+- **Temporal Coverage**: 1979-2026
 - **Spatial Resolution**: 0.25° × 0.25°
 - **Temporal Resolution**: Monthly means
 - **Region**: Greenland Sea
@@ -44,7 +44,7 @@ over warm ocean, driving enhanced turbulent heat fluxes.
 
 ### Statistical Analysis
 
-Split-trend periods: 1979–2015 and 2015–2025.
+Split-trend periods: 1979–2014 and 2015–2026.
 Breakpoint pre-specified at 2015 on physical grounds.
 Trend rates reported per decade. Significance: ** (p<0.01), * (p<0.05).
 Bootstrap CI: n=1000 resamples, 95% prediction bands.

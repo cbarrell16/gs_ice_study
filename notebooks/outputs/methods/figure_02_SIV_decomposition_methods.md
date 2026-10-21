@@ -3,7 +3,8 @@
 ## Data
 GLORYS12V1 ocean reanalysis (Lellouche et al., 2021); 1/12° horizontal
 grid; variables: `siconc`, `sithick`, `usi`, `vsi`, `cell_area`.
-Period: 1993–2025.
+Period: 1993–2026 (restricted to end of FMA winter 2026, i.e.
+through 2026-04-30, matching the 2026 GLORYS12 download extent).
 
 ## Domain
 Greenland Sea polygon: (−22°E, 71°N), (−8.5°E, 71°N), (12°E, 79°N),

@@ -70,3 +70,5 @@ Desktop.ini
 # *.nc
 # outputs/processed_data/
 notebooks/outputs/processed_data/
+notebooks/*/
+notebooks/*/
