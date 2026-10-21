@@ -7,11 +7,13 @@ dependencies:
   - numpy
   - pandas
   - xarray
+  - dask
   - netcdf4
   - scipy
   - matplotlib
   - cartopy
   - cmocean
+  - metpy
   - shapely
   - regionmask
   - pyyaml
@@ -25,4 +27,3 @@ dependencies:
     - pwlf          # Piecewise linear fitting
     - argopy        # Argo float data access
     - rockhound     # ETOPO1 bathymetry fetching
-    - pyts          # Time series analysis utilities

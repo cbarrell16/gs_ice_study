@@ -1,7 +1,7 @@
 # Greenland Sea Ice Study - Configuration
 # ========================================
 
-# Data source paths (relative to project root)
+# Data source paths (relative to the notebooks/ directory)
 paths:
   era5: "../../era5/era5_*_Arctic.nc"
   osisaf: "../../osi-sea_ice_index/"
@@ -10,8 +10,7 @@ paths:
   processed_data: "./outputs/processed_data"
   logs: "./outputs/logs"
   methods: "./outputs/methods"
-  # GLORYS12 path includes pre-computed density fields; canonical path below.
-  # data_README.md documents this as ../glorys12_with_density/
+  # GLORYS12 subset with pre-computed density fields
   glorys12: "../../glorys12_with_density/glorys12_*_Greenland_Sea_with_density.nc"
 
 # Region definitions
@@ -67,7 +66,7 @@ analysis:
     period_2_osisaf: [2015, 2026]
     # GLORYS12 ocean reanalysis periods (start 1993, data availability)
     period_1_glorys: [1993, 2015]
-    period_2_glorys: [2015, 2025]
+    period_2_glorys: [2015, 2026]
 
   # Years of maximum extent for spatial panels
   max_extent_years:

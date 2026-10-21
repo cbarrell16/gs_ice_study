@@ -1,35 +1,59 @@
 # Greenland Sea Ice Study
 
-Analysis of wintertime sea-ice recovery in the Greenland Sea, investigating
-a two-phase regime transition around 2015: pre-2015 Atlantification followed
-by post-2015 Polar Surface Water freshening and regional sea-ice recovery —
-occurring during a period of record-low pan-Arctic extents.
+Analysis code for the manuscript *"Reversal of wintertime sea-ice decline in the
+Greenland Sea despite record low pan-Arctic extents"*, submitted to
+*Nature Communications*.
 
-This repository contains the analysis code for the manuscript submitted to
-*Nature Climate Change*.
+Wintertime sea-ice extent in the Greenland Sea has increased since 2015, reversing
+its earlier decline during a period of record-low pan-Arctic extents. The analysis
+shows a transition from pre-2015 Atlantification to post-2015 freshening by an
+increased and fresher Polar Surface Water inflow through Fram Strait, which
+strengthens upper-ocean stratification. This acts together with stronger
+early-winter cold-air outbreaks linked to large-scale atmospheric circulation.
 
-## Project Structure
+## Project structure
 
 ```
 gs_ice_study/
-├── config.yaml              # Central configuration file
+├── config.yaml              # Central configuration (data paths, parameters, plotting)
 ├── environment.yml          # Conda environment specification
 ├── data_README.md           # Documentation of all external data sources
-├── utils/                   # Shared utility functions
-│   ├── __init__.py
-│   ├── logger.py            # Logging configuration
-│   ├── data_utils.py        # Data loading and processing
-│   ├── stats_utils.py       # Statistical analysis functions
-│   └── plot_utils.py        # Plotting utilities and styling
-├── notebooks/               # Analysis notebooks, one per figure
-│   ├── figure_01_SIE_timeseries_and_SIC_spatial_trends.ipynb
-│   └── ...
-└── outputs/                 # All outputs (not in Git except processed_data)
-    ├── figures/             # Final publication figures (600 DPI PNG)
-    ├── processed_data/      # Intermediate NetCDF/CSV files for replotting
-    ├── logs/                # Processing logs (not in Git)
-    └── methods/             # Auto-generated methodology documentation
+├── utils/                   # Shared utility functions (logging, data, stats, plotting)
+└── notebooks/               # Analysis notebooks (see table below)
+    └── outputs/             # Created when notebooks run; not tracked in Git
+        ├── figures/         # Publication figures (600 DPI PNG)
+        ├── processed_data/  # Intermediate NetCDF/CSV used for replotting
+        ├── methods/         # Auto-generated methods documentation
+        └── logs/            # Processing logs
 ```
+
+Subdirectories of `notebooks/` (including all outputs) are excluded from Git.
+Processed data needed for replotting will be archived on Zenodo.
+
+## Notebooks and run order
+
+| Step | Notebook | Produces |
+|---|---|---|
+| 1. Data preparation | `download_preprocess_glorys12_nordic_seas.ipynb` | GLORYS12 subset with density |
+| | `osisaf_sii_v3_download.ipynb` | OSI SAF sea-ice extent (daily and monthly) |
+| | `climate_indices_download.ipynb` | Climate indices (NAO, AO, GBI, SCAND, NINO3.4, TPQD, PDO) |
+| | `compute_arctic_dipole.ipynb` | Arctic Dipole index from ERA5 |
+| | `argo_glorys_pairing.ipynb` | Argo–GLORYS12 collocated profiles |
+| 2. Main figures | `figure_01_SIE_timeseries_and_SIC_spatial_trends.ipynb` | Fig. 1 |
+| | `figure_02_SIV_decomposition.ipynb` | Fig. 2 |
+| | `figure_03_Greenland_Sea_T_and_S.ipynb` | Fig. 3 |
+| | `figure_04_PSW_and_AW.ipynb` | Fig. 4 |
+| | `figure_05_PSW_extent.ipynb` | Fig. 5 |
+| | `figure_06_CAOidx_SEB.ipynb` | Fig. 6 (also writes the CAO index used in Fig. 8) |
+| | `figure_07_atmospheric_composites.ipynb` | Fig. 7 |
+| 3. Correlations | `compute_monthly_ondjfma_correlations.ipynb` | Unfiltered correlations |
+| | `compute_trimmed_correlation_matrix.ipynb` | Band-pass filtered correlations and significance |
+| | `figure_correlation_and_phases_combined.ipynb` | Fig. 8 |
+| 4. Supplementary figures | `figure_s01_glorys12_sea_ice_verification.ipynb` | Fig. S1 |
+| | `figure_s02_GLORYS12_T_S_verification.ipynb` | Fig. S2 |
+| | `figure_s03_FS_mooring_glorys_verification.ipynb` | Fig. S3 |
+| | `figure_s04_FS_FWT_GLORYS12_verification.ipynb` | Fig. S4 |
+| | `figures_s05_s06_observing_network_sensitivity_and_trend_fidelity.ipynb` | Figs S5 and S6 |
 
 ## Setup
 
@@ -43,12 +67,13 @@ conda activate gs_ice_study
 ### 2. Configure data paths
 
 Data files are stored outside the repository. Default paths in `config.yaml`
-assume data is two levels up from the project root:
+assume data is two levels up from the `notebooks/` directory:
 - ERA5: `../../era5/`
-- OSISAF: `../../osi-sea_ice_index/`
+- OSI SAF: `../../osi-sea_ice_index/`
 - GLORYS12: `../../glorys12_with_density/`
 
-Edit `config.yaml` if your data is stored elsewhere.
+Edit `config.yaml` (and the path constants at the top of each notebook) if your
+data is stored elsewhere.
 
 ### 3. Run notebooks
 
@@ -56,77 +81,42 @@ Edit `config.yaml` if your data is stored elsewhere.
 jupyter lab
 ```
 
-Navigate to `notebooks/` and run the analysis notebooks. Each notebook is
-self-contained and produces its own figures, processed data, and methods
-documentation.
+Run the notebooks in the order given above. Each notebook produces its own
+figures, processed data and methods documentation in `notebooks/outputs/`.
+
+## Reprocessing vs. replotting
+
+Each notebook has a `REPROCESS` flag near the top:
+
+- **`REPROCESS = True`** loads the raw source data, recomputes all processed
+  outputs and saves them to `notebooks/outputs/processed_data/`. This requires
+  access to the full external datasets.
+- **`REPROCESS = False`** (default) loads previously saved processed data only,
+  for replotting without the raw data. Download the processed data from Zenodo
+  into `notebooks/outputs/processed_data/` first.
 
 ## Configuration
 
-All parameters are centralised in `config.yaml`:
-- **Data paths**: source data locations
-- **Analysis parameters**: breakpoint years, confidence levels, thresholds
-- **Plotting settings**: colours, DPI, figure sizes
-- **Units**: consistent units across all outputs
+All key parameters are centralised in `config.yaml`:
+- Greenland Sea breakpoint year: **2015** (identified by piecewise linear regression)
+- Pan-Arctic breakpoint year: **2017** (set per notebook as `BREAK_YEAR_NH`)
+- Winter: October–April (early winter ONDJ, late winter FMA), labelled by the year of January
+- Bootstrap iterations: **1000**; confidence level: **0.95**
 
-Key parameters:
-- Greenland Sea breakpoint year: **2015** (confirmed by piecewise linear regression)
-- Pan-Arctic breakpoint year: **2017** (set per-script as `BREAK_YEAR_NH`)
-- Bootstrap iterations: **1000**
-- Confidence level: **0.95**
-
-## Reprocessing vs. Replotting
-
-Each notebook has a `REPROCESS` flag near the top of the script:
-
-- **`REPROCESS = True`**: loads all raw source data, recomputes all processed
-  outputs (NetCDF/CSV files), and saves them to `outputs/processed_data/figure_XX/`.
-  Requires access to the full external datasets.
-- **`REPROCESS = False`** (default): loads from previously saved processed data
-  only. Suitable for replotting figures without access to raw data.
-
-Run each notebook once with `REPROCESS = True` to generate the processed data
-cache, then subsequent runs with `REPROCESS = False` are fast and self-contained.
-
-## Outputs
-
-### Figures
-Publication-quality figures saved to `outputs/figures/` at 600 DPI.
-
-### Processed Data
-Intermediate NetCDF and CSV files in `outputs/processed_data/figure_XX/`
-allow replotting without reprocessing raw data (see `REPROCESS` flag above).
-
-### Logs
-Detailed processing logs in `outputs/logs/` (excluded from Git). Each run
-produces a timestamped log with data sources, processing steps, and outputs.
-
-### Methods Documentation
-Auto-generated Markdown files in `outputs/methods/` document data sources,
-mathematical formulations, and statistical methods for each figure.
-
-## Data Sources
+## Data sources
 
 See `data_README.md` for full documentation of:
 - ERA5 atmospheric reanalysis (ECMWF)
-- OSISAF Sea Ice Index (daily and monthly products)
+- OSI SAF Sea Ice Index (daily and monthly products)
 - GLORYS12 ocean reanalysis (Copernicus Marine Service)
-- Fram Strait mooring records (Norwegian Polar Institute)
+- Fram Strait Arctic Outflow Observatory mooring records (Norwegian Polar Institute)
 - Argo float profiles (Argo GDAC)
 - IGP 2018 field campaign CTD/XCTD profiles
 - ROVER 2025 field campaign CTD profiles
 
-## Reproducibility
-
-To execute all notebooks in order:
-
-```bash
-jupyter nbconvert --execute --to notebook --inplace notebooks/figure_01_SIE_timeseries_and_SIC_spatial_trends.ipynb
-# ... repeat for each figure notebook
-```
-
 ## Citation
 
-When published, this repository will be archived with a DOI via Zenodo.
+This repository will be archived with a DOI via Zenodo.
 
 ## License
 
@@ -135,6 +125,4 @@ To be determined upon publication.
 ## Contact
 
 Chris Barrell (c.barrell@uea.ac.uk)
-School of Environmental Sciences
-University of East Anglia
-Norwich, UK
+School of Environmental Sciences, University of East Anglia, Norwich, UK
