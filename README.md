@@ -18,7 +18,7 @@ gs_ice_study/
 ├── config.yaml              # Central configuration (data paths, parameters, plotting)
 ├── environment.yml          # Conda environment specification
 ├── data_README.md           # Documentation of all external data sources
-├── utils/                   # Shared utility functions (logging, data, stats, plotting)
+├── utils/                   # Shared logging utilities (logger.py)
 └── notebooks/               # Analysis notebooks (see table below)
     └── outputs/             # Created when notebooks run; not tracked in Git
         ├── figures/         # Publication figures (600 DPI PNG)
@@ -48,12 +48,15 @@ Processed data needed for replotting will be archived on Zenodo.
 | | `figure_07_atmospheric_composites.ipynb` | Fig. 7 |
 | 3. Correlations | `compute_monthly_ondjfma_correlations.ipynb` | Unfiltered correlations |
 | | `compute_trimmed_correlation_matrix.ipynb` | Band-pass filtered correlations and significance |
-| | `figure_correlation_and_phases_combined.ipynb` | Fig. 8 |
+| | `figure_08_correlation_and_phases_combined.ipynb` | Fig. 8 |
 | 4. Supplementary figures | `figure_s01_glorys12_sea_ice_verification.ipynb` | Fig. S1 |
 | | `figure_s02_GLORYS12_T_S_verification.ipynb` | Fig. S2 |
 | | `figure_s03_FS_mooring_glorys_verification.ipynb` | Fig. S3 |
 | | `figure_s04_FS_FWT_GLORYS12_verification.ipynb` | Fig. S4 |
 | | `figures_s05_s06_observing_network_sensitivity_and_trend_fidelity.ipynb` | Figs S5 and S6 |
+| Other (not required for the paper figures) | `Equations.ipynb` | Rendered equations for the Methods |
+| | `figure_02_spatial_diagnostics.ipynb` | Diagnostic maps supporting Fig. 2 |
+| | `figure_03_Greenland_Sea_T_and_S_original.ipynb` | Earlier version of Fig. 3 |
 
 ## Setup
 
